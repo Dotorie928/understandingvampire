@@ -17,7 +17,6 @@
         }
         .question {
             margin: 20px 0;
-            display: none;
         }
         .options {
             display: flex;
@@ -61,11 +60,9 @@
 <body>
     <h1>연극 <뱀이특법> 속 나의 뱀파이어 유형은?</h1>
     <p>XXXX년 한국, 이름 모를 뱀파이어에게 물려 뱀파이어가 된 나. 앞으로 나는 어떤 유형의 뱀파이어로 살게 될까?</p>
-    <button id="startButton" onclick="startQuiz()">시작하기</button>
 
     <form id="quizForm">
-        <!-- Question 1 -->
-        <div id="q1" class="question">
+        <div class="question">
             <h3>1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?</h3>
             <div class="options">
                 <input type="radio" name="q1" value="A"><label>함께했던 이들이 하나둘 사라지는 것.</label>
@@ -75,8 +72,7 @@
             </div>
         </div>
 
-        <!-- Question 2 -->
-        <div id="q2" class="question">
+        <div class="question">
             <h3>2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?</h3>
             <div class="options">
                 <input type="radio" name="q2" value="A"><label>본능을 부정할 필요는 없으니 원하는 대로 마신다.</label>
@@ -86,8 +82,7 @@
             </div>
         </div>
 
-        <!-- Question 3 -->
-        <div id="q3" class="question">
+        <div class="question">
             <h3>3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?</h3>
             <div class="options">
                 <input type="radio" name="q3" value="A"><label>우리는 영원히 함께할 운명이라며 매달린다.</label>
@@ -97,8 +92,7 @@
             </div>
         </div>
 
-        <!-- Question 4 -->
-        <div id="q4" class="question">
+        <div class="question">
             <h3>4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?</h3>
             <div class="options">
                 <input type="radio" name="q4" value="A"><label>내가 사랑하는 존재.</label>
@@ -108,8 +102,7 @@
             </div>
         </div>
 
-        <!-- Question 5 -->
-        <div id="q5" class="question">
+        <div class="question">
             <h3>5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?</h3>
             <div class="options">
                 <input type="radio" name="q5" value="A"><label>인간 따위는 별것 아니다. 맞서 싸운다.</label>
@@ -119,8 +112,7 @@
             </div>
         </div>
 
-        <!-- Question 6 -->
-        <div id="q6" class="question">
+        <div class="question">
             <h3>6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?</h3>
             <div class="options">
                 <input type="radio" name="q6" value="A"><label>오히려 좋다. 나는 인간과 달리 강하니까.</label>
@@ -130,8 +122,7 @@
             </div>
         </div>
 
-        <!-- Question 7 -->
-        <div id="q7" class="question">
+        <div class="question">
             <h3>7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?</h3>
             <div class="options">
                 <input type="radio" name="q7" value="A"><label>사랑할 존재를 찾아 나선다.</label>
@@ -141,41 +132,15 @@
             </div>
         </div>
 
-        <div id="result" class="result">
-            <h2>결과</h2>
-            <p id="resultText"></p>
-        </div>
+        <button type="button" onclick="calculateResult()">결과 보기</button>
     </form>
 
+    <div id="result" class="result">
+        <h2>결과</h2>
+        <p id="resultText"></p>
+    </div>
+
     <script>
-        let currentQuestion = 1;
-
-        function startQuiz() {
-            document.getElementById("startButton").style.display = "none"; // 시작 버튼 숨기기
-            showQuestion(currentQuestion);
-        }
-
-        function showQuestion(questionNumber) {
-            // 이전 질문 숨기기
-            if (questionNumber > 1) {
-                document.getElementById("q" + (questionNumber - 1)).style.display = "none";
-            }
-
-            // 마지막 질문에 도달하면 결과 계산
-            if (questionNumber > 7) {
-                calculateResult();
-                return;
-            }
-
-            // 현재 질문 보이기
-            document.getElementById("q" + questionNumber).style.display = "block";
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-        }
-
         function calculateResult() {
             const form = document.forms['quizForm'];
             const choices = {
@@ -195,4 +160,20 @@
             const maxChoice = Object.keys(choices).reduce((a, b) => choices[a] > choices[b] ? a : b);
 
             const results = {
-                'A': "당신의 뱀파이어 유형은 '애디'입니다. 욕망
+                'A': "당신의 뱀파이어 유형은 '애디'입니다. 욕망에 솔직하고 오만하지만, 사랑 앞에 나약합니다.",
+                'B': "당신의 뱀파이어 유형은 '이브'입니다. 쉽게 권태를 느끼며, 자신을 이해해 줄 존재를 진정으로 바랍니다.",
+                'C': "당신의 뱀파이어 유형은 '윤'입니다. 능글맞으면서도 냉철한 면모가 있고, 목적에 충실합니다.",
+                'D': "당신의 뱀파이어 유형은 '정'입니다. 무리에 속하지 않는 것이 익숙한 혼혈 뱀파이어입니다."
+            };
+
+            // 만약 가장 많이 선택된 값이 여러 개일 경우 랜덤으로 하나 선택
+            const maxCount = Math.max(...Object.values(choices));
+            const maxKeys = Object.keys(choices).filter(key => choices[key] === maxCount);
+            const randomChoice = maxKeys[Math.floor(Math.random() * maxKeys.length)];
+
+            document.getElementById("resultText").innerText = results[randomChoice];
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
