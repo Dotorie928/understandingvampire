@@ -7,8 +7,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            background-color: #800020; /* 버건디 색상 */
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -111,10 +113,10 @@
         <div id="q1" class="question">
             <h3>1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?</h3>
             <div class="options">
-                <input type="radio" name="q1" value="A"><label>함께했던 이들이 하나둘 사라지는 것.</label>
-                <input type="radio" name="q1" value="B"><label>삶을 끝내지 못하고 끊임없이 살아가는 것.</label>
-                <input type="radio" name="q1" value="C"><label>내가 모르는 어떤 것이 나를 위협하는 것.</label>
-                <input type="radio" name="q1" value="D"><label>내 본능을 억누르지 못하고 괴물이 되는 것.</label>
+                <input type="radio" name="q1" value="A" onclick="saveAnswer(1)"><label>함께했던 이들이 하나둘 사라지는 것.</label>
+                <input type="radio" name="q1" value="B" onclick="saveAnswer(1)"><label>삶을 끝내지 못하고 끊임없이 살아가는 것.</label>
+                <input type="radio" name="q1" value="C" onclick="saveAnswer(1)"><label>내가 모르는 어떤 것이 나를 위협하는 것.</label>
+                <input type="radio" name="q1" value="D" onclick="saveAnswer(1)"><label>내 본능을 억누르지 못하고 괴물이 되는 것.</label>
             </div>
         </div>
 
@@ -122,10 +124,10 @@
         <div id="q2" class="question">
             <h3>2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?</h3>
             <div class="options">
-                <input type="radio" name="q2" value="A"><label>본능을 부정할 필요는 없으니 원하는 대로 마신다.</label>
-                <input type="radio" name="q2" value="B"><label>죄책감을 느끼면서도 결국 마시고 후회한다.</label>
-                <input type="radio" name="q2" value="C"><label>자제력을 잃지 않고 필요한 만큼만 마신다.</label>
-                <input type="radio" name="q2" value="D"><label>최대한 참거나, 대체할 방법을 찾아본다.</label>
+                <input type="radio" name="q2" value="A" onclick="saveAnswer(2)"><label>본능을 부정할 필요는 없으니 원하는 대로 마신다.</label>
+                <input type="radio" name="q2" value="B" onclick="saveAnswer(2)"><label>죄책감을 느끼면서도 결국 마시고 후회한다.</label>
+                <input type="radio" name="q2" value="C" onclick="saveAnswer(2)"><label>자제력을 잃지 않고 필요한 만큼만 마신다.</label>
+                <input type="radio" name="q2" value="D" onclick="saveAnswer(2)"><label>최대한 참거나, 대체할 방법을 찾아본다.</label>
             </div>
         </div>
 
@@ -133,10 +135,10 @@
         <div id="q3" class="question">
             <h3>3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?</h3>
             <div class="options">
-                <input type="radio" name="q3" value="A"><label>우리는 영원히 함께할 운명이라며 매달린다.</label>
-                <input type="radio" name="q3" value="B"><label>그를 나와 같은 존재로 만든다.</label>
-                <input type="radio" name="q3" value="C"><label>이유를 묻고, 합당하다면 보내준다.</label>
-                <input type="radio" name="q3" value="D"><label>순순히 보내주지만, 주위를 맴돌며 지켜본다.</label>
+                <input type="radio" name="q3" value="A" onclick="saveAnswer(3)"><label>우리는 영원히 함께할 운명이라며 매달린다.</label>
+                <input type="radio" name="q3" value="B" onclick="saveAnswer(3)"><label>그를 나와 같은 존재로 만든다.</label>
+                <input type="radio" name="q3" value="C" onclick="saveAnswer(3)"><label>이유를 묻고, 합당하다면 보내준다.</label>
+                <input type="radio" name="q3" value="D" onclick="saveAnswer(3)"><label>순순히 보내주지만, 주위를 맴돌며 지켜본다.</label>
             </div>
         </div>
 
@@ -144,10 +146,10 @@
         <div id="q4" class="question">
             <h3>4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?</h3>
             <div class="options">
-                <input type="radio" name="q4" value="A"><label>내가 사랑하는 존재.</label>
-                <input type="radio" name="q4" value="B"><label>나를 이해하고 포용할 존재.</label>
-                <input type="radio" name="q4" value="C"><label>내가 추구하는 목표.</label>
-                <input type="radio" name="q4" value="D"><label>내가 지키며 살아갈 신념.</label>
+                <input type="radio" name="q4" value="A" onclick="saveAnswer(4)"><label>내가 사랑하는 존재.</label>
+                <input type="radio" name="q4" value="B" onclick="saveAnswer(4)"><label>나를 이해하고 포용할 존재.</label>
+                <input type="radio" name="q4" value="C" onclick="saveAnswer(4)"><label>내가 추구하는 목표.</label>
+                <input type="radio" name="q4" value="D" onclick="saveAnswer(4)"><label>내가 지키며 살아갈 신념.</label>
             </div>
         </div>
 
@@ -155,10 +157,10 @@
         <div id="q5" class="question">
             <h3>5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?</h3>
             <div class="options">
-                <input type="radio" name="q5" value="A"><label>인간 따위는 별것 아니다. 맞서 싸운다.</label>
-                <input type="radio" name="q5" value="B"><label>그를 나와 같은 존재로 만든다.</label>
-                <input type="radio" name="q5" value="C"><label>차분히 대처한다.</label>
-                <input type="radio" name="q5" value="D"><label>자리를 피한다.</label>
+                <input type="radio" name="q5" value="A" onclick="saveAnswer(5)"><label>인간 따위는 별것 아니다. 맞서 싸운다.</label>
+                <input type="radio" name="q5" value="B" onclick="saveAnswer(5)"><label>그를 나와 같은 존재로 만든다.</label>
+                <input type="radio" name="q5" value="C" onclick="saveAnswer(5)"><label>차분히 대처한다.</label>
+                <input type="radio" name="q5" value="D" onclick="saveAnswer(5)"><label>자리를 피한다.</label>
             </div>
         </div>
 
@@ -166,10 +168,10 @@
         <div id="q6" class="question">
             <h3>6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?</h3>
             <div class="options">
-                <input type="radio" name="q6" value="A"><label>오히려 좋다. 나는 인간과 달리 강하니까.</label>
-                <input type="radio" name="q6" value="B"><label>신경 쓰지 않는다. 그 인간은 나를 이해하지 못할 테니까.</label>
-                <input type="radio" name="q6" value="C"><label>왜 내가 두려운지 이유를 묻는다.</label>
-                <input type="radio" name="q6" value="D"><label>귀찮은 일이 생길지도 모르니 자리를 피한다.</label>
+                <input type="radio" name="q6" value="A" onclick="saveAnswer(6)"><label>오히려 좋다. 나는 인간과 달리 강하니까.</label>
+                <input type="radio" name="q6" value="B" onclick="saveAnswer(6)"><label>신경 쓰지 않는다. 그 인간은 나를 이해하지 못할 테니까.</label>
+                <input type="radio" name="q6" value="C" onclick="saveAnswer(6)"><label>왜 내가 두려운지 이유를 묻는다.</label>
+                <input type="radio" name="q6" value="D" onclick="saveAnswer(6)"><label>귀찮은 일이 생길지도 모르니 자리를 피한다.</label>
             </div>
         </div>
 
@@ -177,10 +179,10 @@
         <div id="q7" class="question">
             <h3>7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?</h3>
             <div class="options">
-                <input type="radio" name="q7" value="A"><label>사랑할 존재를 찾아 나선다.</label>
-                <input type="radio" name="q7" value="B"><label>권태로운 삶을 끝내기 위해 노력한다.</label>
-                <input type="radio" name="q7" value="C"><label>과거의 기억을 곱씹으며 홀로 살아간다.</label>
-                <input type="radio" name="q7" value="D"><label>인간 사회에 녹아들어 살아간다.</label>
+                <input type="radio" name="q7" value="A" onclick="saveAnswer(7)"><label>사랑할 존재를 찾아 나선다.</label>
+                <input type="radio" name="q7" value="B" onclick="saveAnswer(7)"><label>권태로운 삶을 끝내기 위해 노력한다.</label>
+                <input type="radio" name="q7" value="C" onclick="saveAnswer(7)"><label>과거의 기억을 곱씹으며 홀로 살아간다.</label>
+                <input type="radio" name="q7" value="D" onclick="saveAnswer(7)"><label>인간 사회에 녹아들어 살아간다.</label>
             </div>
         </div>
 
@@ -197,4 +199,68 @@
             q3: '',
             q4: '',
             q5: '',
-            q6
+            q6: '',
+            q7: ''
+        };
+
+        // 질문 시작
+        function startQuiz() {
+            document.getElementById('startButton').style.display = 'none';
+            showQuestion(0);
+        }
+
+        // 각 질문을 보여주는 함수
+        function showQuestion(questionNumber) {
+            const question = document.querySelectorAll('.question')[questionNumber];
+            question.style.display = 'block';
+        }
+
+        // 선택지 클릭 시 답변 저장
+        function saveAnswer(questionNumber) {
+            const selectedAnswer = document.querySelector(`input[name="q${questionNumber}"]:checked`).value;
+            answers[`q${questionNumber}`] = selectedAnswer;
+            // 다음 질문으로 이동
+            if (questionNumber < 6) {
+                document.querySelectorAll('.question')[questionNumber].style.display = 'none';
+                showQuestion(questionNumber + 1);
+            } else {
+                calculateResult();
+            }
+        }
+
+        // 결과 도출
+        function calculateResult() {
+            const answerCount = { A: 0, B: 0, C: 0, D: 0 };
+            for (let question in answers) {
+                answerCount[answers[question]]++;
+            }
+
+            let maxCount = Math.max(...Object.values(answerCount));
+            let resultType;
+            if (answerCount.A === maxCount) {
+                resultType = '애디';
+            } else if (answerCount.B === maxCount) {
+                resultType = '이브';
+            } else if (answerCount.C === maxCount) {
+                resultType = '윤';
+            } else {
+                resultType = '정';
+            }
+
+            let resultText = '';
+            if (resultType === '애디') {
+                resultText = "당신의 뱀파이어 유형은 '애디'입니다. 욕망에 솔직하고 오만하지만, 사랑 앞에 나약합니다.";
+            } else if (resultType === '이브') {
+                resultText = "당신의 뱀파이어 유형은 '이브'입니다. 쉽게 권태를 느끼며, 자신을 이해해 줄 존재를 진정으로 바랍니다.";
+            } else if (resultType === '윤') {
+                resultText = "당신의 뱀파이어 유형은 '윤'입니다. 능글맞으면서도 냉철한 면모가 있고, 진짜 속내를 모두에게 숨기고 있습니다.";
+            } else {
+                resultText = "당신의 뱀파이어 유형은 '정'입니다. 무리에 속하지 않는 것이 익숙한 혼혈 뱀파이어입니다.";
+            }
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = resultText;
+        }
+    </script>
+</body>
+</html>
