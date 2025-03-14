@@ -3,264 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연극 <뱀이특법> 속 나의 뱀파이어 유형은?</title>
+    <title>연극 &lt;뱀이특법&gt; 속 나의 뱀파이어 유형은?</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #800020; /* 버건디 색상 */
-            color: white;
+            box-sizing: border-box;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+        }
+        body {
+            background-color: #800020; /* 버건디색 배경 */
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            box-sizing: border-box;
+            min-height: 100vh;
+            padding: 20px;
         }
-
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
         h1 {
             text-align: center;
-            font-size: 24px;
             margin-bottom: 20px;
+            color: #800020;
+            font-size: 1.8rem;
+            font-weight: bold;
         }
-
         p {
-            font-size: 18px;
             margin-bottom: 20px;
-            text-align: center;
-            max-width: 600px;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-size: 1rem;
         }
-
         .question {
-            margin: 20px 0;
             display: none;
+            margin-bottom: 15px;
         }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .question.active {
+            display: block;
         }
-
-        .options label {
-            background-color: #f1f1f1;
+        .option {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             padding: 15px;
-            border-radius: 5px;
+            margin-bottom: 10px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box;
+            transition: background-color 0.2s;
         }
-
-        .options input[type="radio"]:checked + label {
-            background-color: #c0c0f0;
+        .option:hover {
+            background-color: #eee;
         }
-
-        .result {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #d3f9d8;
-            border-radius: 5px;
-            font-size: 18px;
-            text-align: center;
-            max-width: 600px;
+        .option.selected {
+            background-color: #800020;
+            color: white;
+            border-color: #800020;
         }
-
-        button {
-            padding: 12px 24px;
-            background-color: #4CAF50;
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background-color: #800020;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
         }
-
-        button:hover {
-            background-color: #45a049;
+        .btn:hover {
+            background-color: #600018;
         }
-
-        /* 모바일 반응형 디자인 */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 20px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-
-            .options label {
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
-            }
+        #result {
+            display: none;
+        }
+        .result-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #800020;
+        }
+        .result-desc {
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        .similar-vampire {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+        }
+        .similar-vampire h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #800020;
+        }
+        .similar-vampire p {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .special-link {
+            background-color: #800020;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+        .special-link:hover {
+            background-color: #600018;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>연극 <뱀이특법> 속 나의 뱀파이어 유형은?</h1>
-    <p>XXXX년 한국, 이름 모를 뱀파이어에게 물려 뱀파이어가 된 나. 앞으로 나는 어떤 유형의 뱀파이어로 살게 될까?</p>
-    <button id="startButton" onclick="startQuiz()">시작하기</button>
+    <div class="container">
+        <!-- 시작 화면 -->
+        <div id="start">
+            <h1>연극 &lt;뱀이특법&gt; 속 나의 뱀파이어 유형은?</h1>
+            <p>XXXX년 한국, 이름 모를 뱀파이어에게 물려 뱀파이어가 된 나. 앞으로 나는 어떤 유형의 뱀파이어로 살게 될까?</p>
+            <button class="btn" id="startBtn">시작하기</button>
+        </div>
 
-    <form id="quizForm">
-        <!-- Question 1 -->
-        <div id="q1" class="question">
-            <h3>1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?</h3>
-            <div class="options">
-                <input type="radio" name="q1" value="A" onclick="saveAnswer(1)"><label>함께했던 이들이 하나둘 사라지는 것.</label>
-                <input type="radio" name="q1" value="B" onclick="saveAnswer(1)"><label>삶을 끝내지 못하고 끊임없이 살아가는 것.</label>
-                <input type="radio" name="q1" value="C" onclick="saveAnswer(1)"><label>내가 모르는 어떤 것이 나를 위협하는 것.</label>
-                <input type="radio" name="q1" value="D" onclick="saveAnswer(1)"><label>내 본능을 억누르지 못하고 괴물이 되는 것.</label>
+        <!-- 질문 화면 -->
+        <div id="quiz" class="hidden">
+            <div class="question" data-question="1">
+                <h1>1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="2">
+                <h1>2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="3">
+                <h1>3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="4">
+                <h1>4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="5">
+                <h1>5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="6">
+                <h1>6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?</h1>
+                <div class="options"></div>
+            </div>
+            <div class="question" data-question="7">
+                <h1>7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?</h1>
+                <div class="options"></div>
             </div>
         </div>
 
-        <!-- Question 2 -->
-        <div id="q2" class="question">
-            <h3>2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?</h3>
-            <div class="options">
-                <input type="radio" name="q2" value="A" onclick="saveAnswer(2)"><label>본능을 부정할 필요는 없으니 원하는 대로 마신다.</label>
-                <input type="radio" name="q2" value="B" onclick="saveAnswer(2)"><label>죄책감을 느끼면서도 결국 마시고 후회한다.</label>
-                <input type="radio" name="q2" value="C" onclick="saveAnswer(2)"><label>자제력을 잃지 않고 필요한 만큼만 마신다.</label>
-                <input type="radio" name="q2" value="D" onclick="saveAnswer(2)"><label>최대한 참거나, 대체할 방법을 찾아본다.</label>
+        <!-- 결과 화면 -->
+        <div id="result" class="hidden">
+            <h1>🧛‍♀당신의 뱀파이어 유형은?</h1>
+            <div class="result-name" id="resultName"></div>
+            <div class="result-desc" id="resultDesc"></div>
+            
+            <div class="similar-vampire">
+                <h3>당신의 유형과 유사한 뱀파이어</h3>
+                <p id="similarVampire"></p>
             </div>
+            
+            <a href="https://link.tumblbug.com/VeQWD0T1IRb" class="special-link" target="_blank">
+                당신과 닮은 뱀파이어를 이해하는 특별한 방법 예매하기
+            </a>
+            
+            <button class="btn" id="retryBtn">다시 테스트하기</button>
         </div>
-
-        <!-- Question 3 -->
-        <div id="q3" class="question">
-            <h3>3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?</h3>
-            <div class="options">
-                <input type="radio" name="q3" value="A" onclick="saveAnswer(3)"><label>우리는 영원히 함께할 운명이라며 매달린다.</label>
-                <input type="radio" name="q3" value="B" onclick="saveAnswer(3)"><label>그를 나와 같은 존재로 만든다.</label>
-                <input type="radio" name="q3" value="C" onclick="saveAnswer(3)"><label>이유를 묻고, 합당하다면 보내준다.</label>
-                <input type="radio" name="q3" value="D" onclick="saveAnswer(3)"><label>순순히 보내주지만, 주위를 맴돌며 지켜본다.</label>
-            </div>
-        </div>
-
-        <!-- Question 4 -->
-        <div id="q4" class="question">
-            <h3>4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?</h3>
-            <div class="options">
-                <input type="radio" name="q4" value="A" onclick="saveAnswer(4)"><label>내가 사랑하는 존재.</label>
-                <input type="radio" name="q4" value="B" onclick="saveAnswer(4)"><label>나를 이해하고 포용할 존재.</label>
-                <input type="radio" name="q4" value="C" onclick="saveAnswer(4)"><label>내가 추구하는 목표.</label>
-                <input type="radio" name="q4" value="D" onclick="saveAnswer(4)"><label>내가 지키며 살아갈 신념.</label>
-            </div>
-        </div>
-
-        <!-- Question 5 -->
-        <div id="q5" class="question">
-            <h3>5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?</h3>
-            <div class="options">
-                <input type="radio" name="q5" value="A" onclick="saveAnswer(5)"><label>인간 따위는 별것 아니다. 맞서 싸운다.</label>
-                <input type="radio" name="q5" value="B" onclick="saveAnswer(5)"><label>그를 나와 같은 존재로 만든다.</label>
-                <input type="radio" name="q5" value="C" onclick="saveAnswer(5)"><label>차분히 대처한다.</label>
-                <input type="radio" name="q5" value="D" onclick="saveAnswer(5)"><label>자리를 피한다.</label>
-            </div>
-        </div>
-
-        <!-- Question 6 -->
-        <div id="q6" class="question">
-            <h3>6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?</h3>
-            <div class="options">
-                <input type="radio" name="q6" value="A" onclick="saveAnswer(6)"><label>오히려 좋다. 나는 인간과 달리 강하니까.</label>
-                <input type="radio" name="q6" value="B" onclick="saveAnswer(6)"><label>신경 쓰지 않는다. 그 인간은 나를 이해하지 못할 테니까.</label>
-                <input type="radio" name="q6" value="C" onclick="saveAnswer(6)"><label>왜 내가 두려운지 이유를 묻는다.</label>
-                <input type="radio" name="q6" value="D" onclick="saveAnswer(6)"><label>귀찮은 일이 생길지도 모르니 자리를 피한다.</label>
-            </div>
-        </div>
-
-        <!-- Question 7 -->
-        <div id="q7" class="question">
-            <h3>7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?</h3>
-            <div class="options">
-                <input type="radio" name="q7" value="A" onclick="saveAnswer(7)"><label>사랑할 존재를 찾아 나선다.</label>
-                <input type="radio" name="q7" value="B" onclick="saveAnswer(7)"><label>권태로운 삶을 끝내기 위해 노력한다.</label>
-                <input type="radio" name="q7" value="C" onclick="saveAnswer(7)"><label>과거의 기억을 곱씹으며 홀로 살아간다.</label>
-                <input type="radio" name="q7" value="D" onclick="saveAnswer(7)"><label>인간 사회에 녹아들어 살아간다.</label>
-            </div>
-        </div>
-
-        <div id="result" class="result">
-            <!-- 결과는 여기에 출력됩니다. -->
-        </div>
-    </form>
+    </div>
 
     <script>
-        let currentQuestion = 0;
-        const answers = {
-            q1: '',
-            q2: '',
-            q3: '',
-            q4: '',
-            q5: '',
-            q6: '',
-            q7: ''
+        // 문제와 선택지 데이터
+        const questions = [
+            {
+                question: "영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?",
+                options: [
+                    { text: "함께했던 이들이 하나둘 사라지는 것.", type: "A" },
+                    { text: "삶을 끝내지 못하고 끊임없이 살아가는 것.", type: "B" },
+                    { text: "내가 모르는 어떤 것이 나를 위협하는 것.", type: "C" },
+                    { text: "내 본능을 억누르지 못하고 괴물이 되는 것.", type: "D" }
+                ]
+            },
+            {
+                question: "피가 마시고 싶어진다. 당신은 어떻게 할 것인가?",
+                options: [
+                    { text: "본능을 부정할 필요는 없으니 원하는 대로 마신다.", type: "A" },
+                    { text: "죄책감을 느끼면서도 결국 마시고 후회한다.", type: "B" },
+                    { text: "자제력을 잃지 않고 필요한 만큼만 마신다.", type: "C" },
+                    { text: "최대한 참거나, 대체할 방법을 찾아본다.", type: "D" }
+                ]
+            },
+            {
+                question: "사랑하는 이가 나를 떠날지도 모른다고 생각한다면?",
+                options: [
+                    { text: "우리는 영원히 함께할 운명이라며 매달린다.", type: "A" },
+                    { text: "그를 나와 같은 존재로 만든다.", type: "B" },
+                    { text: "이유를 묻고, 합당하다면 보내준다.", type: "C" },
+                    { text: "순순히 보내주지만, 주위를 맴돌며 지켜본다.", type: "D" }
+                ]
+            },
+            {
+                question: "영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?",
+                options: [
+                    { text: "내가 사랑하는 존재.", type: "A" },
+                    { text: "나를 이해하고 포용할 존재.", type: "B" },
+                    { text: "내가 추구하는 목표.", type: "C" },
+                    { text: "내가 지키며 살아갈 신념.", type: "D" }
+                ]
+            },
+            {
+                question: "당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?",
+                options: [
+                    { text: "인간 따위는 별것 아니다. 맞서 싸운다.", type: "A" },
+                    { text: "다가올 죽음을 받아들인다.", type: "B" },
+                    { text: "이유를 듣고 차분히 설득을 시도한다.", type: "C" },
+                    { text: "충돌은 싫다. 인간을 따돌리고 피한다.", type: "D" }
+                ]
+            },
+            {
+                question: "당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?",
+                options: [
+                    { text: "오히려 좋다. 나는 인간과 달리 강하니까.", type: "A" },
+                    { text: "신경 쓰지 않는다. 그 인간은 나를 이해하지 못할 테니까.", type: "B" },
+                    { text: "왜 내가 두려운지 이유를 묻는다.", type: "C" },
+                    { text: "귀찮은 일이 생길지도 모르니 자리를 피한다.", type: "D" }
+                ]
+            },
+            {
+                question: "수백 년 후 홀로 남은 당신은 어떻게 할 것인가?",
+                options: [
+                    { text: "사랑할 존재를 찾아 나선다.", type: "A" },
+                    { text: "권태로운 삶을 끝내기 위해 노력한다.", type: "B" },
+                    { text: "과거의 기억을 곱씹으며 홀로 살아간다.", type: "C" },
+                    { text: "인간 사회에 녹아들어 살아간다.", type: "D" }
+                ]
+            }
+        ];
+
+        // 결과 데이터
+        const results = {
+            "A": {
+                name: "[애디 유형]",
+                description: "당신은 본능에 충실하고 사랑에 나약한 뱀파이어입니다. 사랑에 대한 집착과 소유욕이 강하며, 원하는 것을 얻기 위해 적극적으로 행동합니다. 두려움보다는 자신의 욕망과 본능에 충실하게 살아가는 유형으로, 영원한 삶 속에서도 자신이 원하는 것을 향해 나아갑니다.",
+                similar: "애디 <드라큘라(1992)> 드라큘라 백작"
+            },
+            "B": {
+                name: "[이브 유형]",
+                description: "당신은 영원한 삶의 무게를 깊이 느끼는 뱀파이어입니다. 존재에 대한 깊은 고민과 죄책감을 가지고 있으며, 자신의 본능과 욕망 사이에서 끊임없이 갈등합니다. 이해받기를 원하지만, 동시에 타인과의 깊은 관계를 향한 두려움도 있는 복잡한 내면을 지닌 유형입니다.",
+                similar: "이브 <뱀파이어와의 인터뷰(1994)> 루이"
+            },
+            "C": {
+                name: "[윤 유형]",
+                description: "당신은 이성적이고 균형 잡힌 뱀파이어입니다. 자신의 본능을 통제하며 목표를 향해 나아가는 자제력을 갖추고 있습니다. 상황을 분석하고 이해하려는 태도를 가지고 있으며, 감정보다는 합리적인 선택을 중시한다고 스스로 생각합니다. 영원한 삶 속에서도 자신의 가치와 목표를 놓치지 않으려는 유형입니다.",
+                similar: "윤 <트와일라잇(2008)> 아로"
+            },
+            "D": {
+                name: "[정 유형]",
+                description: "당신은 조용하고 은밀하게 자신의 길을 가는 뱀파이어혼혈입니다. 충돌과 갈등을 피하며, 자신의 본능을 억제하려는 경향이 있습니다. 타인과 깊은 관계를 맺기보다는 거리를 두며 관찰하는 것을 선호하고, 자신만의 신념과 원칙을 중요시합니다. 자신의 정체성을 유지하려는 유형입니다.",
+                similar: "정 <블레이드 (1998)> 블레이드"
+            }
         };
 
-        // 질문 시작
-        function startQuiz() {
-            document.getElementById('startButton').style.display = 'none';
-            showQuestion(0);
+        let currentQuestion = 1;
+        const totalQuestions = questions.length;
+        let answers = {};
+
+        // DOM 요소
+        const startDiv = document.getElementById('start');
+        const quizDiv = document.getElementById('quiz');
+        const resultDiv = document.getElementById('result');
+        const startBtn = document.getElementById('startBtn');
+        const retryBtn = document.getElementById('retryBtn');
+
+        // 선택지 섞기 함수
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
-        // 각 질문을 보여주는 함수
-        function showQuestion(questionNumber) {
-            const question = document.querySelectorAll('.question')[questionNumber];
-            question.style.display = 'block';
+        // 질문 초기화
+        function initQuestions() {
+            questions.forEach((q, index) => {
+                const questionNumber = index + 1;
+                const optionsContainer = document.querySelector(`.question[data-question="${questionNumber}"] .options`);
+                optionsContainer.innerHTML = ''; // 기존 옵션 초기화
+                
+                // 옵션 섞기
+                const shuffledOptions = shuffleArray([...q.options]);
+                
+                // 옵션 추가
+                shuffledOptions.forEach((option, optIndex) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    optionDiv.textContent = option.text;
+                    optionDiv.dataset.type = option.type;
+                    
+                    optionDiv.addEventListener('click', function() {
+                        // 이전 선택 제거
+                        const siblings = this.parentElement.querySelectorAll('.option');
+                        siblings.forEach(sib => sib.classList.remove('selected'));
+                        
+                        // 현재 선택 표시
+                        this.classList.add('selected');
+                        
+                        // 답변 저장
+                        answers[questionNumber] = option.type;
+                        
+                        // 마지막 질문이 아니면 다음 질문으로, 아니면 결과 표시
+                        setTimeout(() => {
+                            if (questionNumber < totalQuestions) {
+                                showQuestion(questionNumber + 1);
+                            } else {
+                                showResult();
+                            }
+                        }, 500);
+                    });
+                    
+                    optionsContainer.appendChild(optionDiv);
+                });
+            });
         }
 
-        // 선택지 클릭 시 답변 저장
-        function saveAnswer(questionNumber) {
-            const selectedAnswer = document.querySelector(`input[name="q${questionNumber}"]:checked`).value;
-            answers[`q${questionNumber}`] = selectedAnswer;
-            // 다음 질문으로 이동
-            if (questionNumber < 6) {
-                document.querySelectorAll('.question')[questionNumber].style.display = 'none';
-                showQuestion(questionNumber + 1);
-            } else {
-                calculateResult();
-            }
+        // 특정 질문 표시
+        function showQuestion(number) {
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+            document.querySelector(`.question[data-question="${number}"]`).classList.add('active');
+            currentQuestion = number;
         }
 
-        // 결과 도출
-        function calculateResult() {
-            const answerCount = { A: 0, B: 0, C: 0, D: 0 };
-            for (let question in answers) {
-                answerCount[answers[question]]++;
+        // 결과 계산 및 표시
+        function showResult() {
+            // 답변 집계
+            const counts = {
+                "A": 0,
+                "B": 0,
+                "C": 0,
+                "D": 0
+            };
+            
+            for (const answer in answers) {
+                counts[answers[answer]]++;
             }
-
-            let maxCount = Math.max(...Object.values(answerCount));
-            let resultType;
-            if (answerCount.A === maxCount) {
-                resultType = '애디';
-            } else if (answerCount.B === maxCount) {
-                resultType = '이브';
-            } else if (answerCount.C === maxCount) {
-                resultType = '윤';
-            } else {
-                resultType = '정';
+            
+            // 최대 개수 찾기
+            let maxCount = 0;
+            let maxTypes = [];
+            
+            for (const type in counts) {
+                if (counts[type] > maxCount) {
+                    maxCount = counts[type];
+                    maxTypes = [type];
+                } else if (counts[type] === maxCount) {
+                    maxTypes.push(type);
+                }
             }
-
-            let resultText = '';
-            if (resultType === '애디') {
-                resultText = "당신의 뱀파이어 유형은 '애디'입니다. 욕망에 솔직하고 오만하지만, 사랑 앞에 나약합니다.";
-            } else if (resultType === '이브') {
-                resultText = "당신의 뱀파이어 유형은 '이브'입니다. 쉽게 권태를 느끼며, 자신을 이해해 줄 존재를 진정으로 바랍니다.";
-            } else if (resultType === '윤') {
-                resultText = "당신의 뱀파이어 유형은 '윤'입니다. 능글맞으면서도 냉철한 면모가 있고, 진짜 속내를 모두에게 숨기고 있습니다.";
-            } else {
-                resultText = "당신의 뱀파이어 유형은 '정'입니다. 무리에 속하지 않는 것이 익숙한 혼혈 뱀파이어입니다.";
-            }
-
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').innerHTML = resultText;
+            
+            // 동점이면 랜덤 선택
+            const resultType = maxTypes[Math.floor(Math.random() * maxTypes.length)];
+            const result = results[resultType];
+            
+            // 결과 표시
+            document.getElementById('resultName').textContent = result.name;
+            document.getElementById('resultDesc').textContent = result.description;
+            document.getElementById('similarVampire').textContent = result.similar;
+            
+            // 화면 전환
+            quizDiv.classList.add('hidden');
+            resultDiv.classList.remove('hidden');
         }
+
+        // 시작 버튼 이벤트
+        startBtn.addEventListener('click', function() {
+            startDiv.classList.add('hidden');
+            quizDiv.classList.remove('hidden');
+            showQuestion(1);
+        });
+
+        // 다시하기 버튼 이벤트
+        retryBtn.addEventListener('click', function() {
+            // 초기화
+            answers = {};
+            resultDiv.classList.add('hidden');
+            startDiv.classList.remove('hidden');
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+        });
+
+        // 초기화
+        initQuestions();
     </script>
 </body>
 </html>
