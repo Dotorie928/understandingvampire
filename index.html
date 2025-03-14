@@ -5,195 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>연극 &lt;뱀이특법&gt; 속 나의 뱀파이어 유형은?</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-        }
         body {
+            font-family: 'Noto Sans KR', sans-serif;
             background-color: #800020; /* 버건디색 배경 */
             color: #333;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
         }
+        
         .container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
+            width: 90%;
             max-width: 600px;
-            width: 100%;
+            background-color: white;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        h1 {
+            padding: 30px;
             text-align: center;
+            margin: 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
             margin-bottom: 20px;
             color: #800020;
-            font-size: 1.8rem;
             font-weight: bold;
         }
+        
         p {
-            margin-bottom: 20px;
-            line-height: 1.6;
             font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
+        
         .question {
-            display: none;
-            margin-bottom: 15px;
+            text-align: left;
+            margin-bottom: 25px;
+            font-weight: bold;
         }
-        .question.active {
-            display: block;
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
         }
+        
         .option {
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background-color: white;
+            border: 2px solid #800020;
+            border-radius: 10px;
             padding: 15px;
-            margin-bottom: 10px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            text-align: left;
+            transition: all 0.3s ease;
         }
+        
         .option:hover {
-            background-color: #eee;
+            background-color: #fff0f0;
+            transform: translateY(-2px);
         }
+        
         .option.selected {
             background-color: #800020;
             color: white;
-            border-color: #800020;
         }
-        .btn {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 12px;
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #800020;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        
+        .button {
             background-color: #800020;
             color: white;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            padding: 15px 30px;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
-        .btn:hover {
-            background-color: #600018;
+        
+        .button:hover {
+            background-color: #600010;
+            transform: translateY(-2px);
         }
-        #result {
-            display: none;
+        
+        .result-section {
+            margin-top: 30px;
         }
-        .result-name {
+        
+        .type-name {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 15px;
             color: #800020;
         }
-        .result-desc {
-            font-size: 0.95rem;
-            margin-bottom: 25px;
+        
+        .type-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
+        
         .similar-vampire {
             margin-top: 30px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f8f8;
-            border-radius: 8px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
         }
-        .similar-vampire h3 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #800020;
-        }
-        .similar-vampire p {
+        
+        .similar-title {
+            font-size: 1.2rem;
             font-weight: bold;
-            font-size: 0.95rem;
+            margin-bottom: 10px;
         }
-        .special-link {
-            background-color: #800020;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 20px 0;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-        }
-        .special-link:hover {
-            background-color: #600018;
-        }
-        .hidden {
-            display: none;
+        
+        .similar-content {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="quiz-container">
         <!-- 시작 화면 -->
-        <div id="start">
+        <div id="start-screen">
             <h1>연극 &lt;뱀이특법&gt; 속 나의 뱀파이어 유형은?</h1>
-            <p>XXXX년 한국, 이름 모를 뱀파이어에게 물려 뱀파이어가 된 나. 앞으로 나는 어떤 유형의 뱀파이어로 살게 될까?</p>
-            <button class="btn" id="startBtn">시작하기</button>
+            <p>XXXX년 한국, 이름 모를 뱀파이어에게 물려 뱀파이어가 된 나.<br>앞으로 나는 어떤 유형의 뱀파이어로 살게 될까?</p>
+            <button class="button" id="start-button">시작하기</button>
         </div>
-
+        
         <!-- 질문 화면 -->
-        <div id="quiz" class="hidden">
-            <div class="question" data-question="1">
-                <h1>1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?</h1>
-                <div class="options"></div>
+        <div id="question-screen" style="display: none;">
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
             </div>
-            <div class="question" data-question="2">
-                <h1>2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?</h1>
-                <div class="options"></div>
-            </div>
-            <div class="question" data-question="3">
-                <h1>3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?</h1>
-                <div class="options"></div>
-            </div>
-            <div class="question" data-question="4">
-                <h1>4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?</h1>
-                <div class="options"></div>
-            </div>
-            <div class="question" data-question="5">
-                <h1>5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?</h1>
-                <div class="options"></div>
-            </div>
-            <div class="question" data-question="6">
-                <h1>6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?</h1>
-                <div class="options"></div>
-            </div>
-            <div class="question" data-question="7">
-                <h1>7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?</h1>
-                <div class="options"></div>
-            </div>
+            <div id="question" class="question"></div>
+            <div id="options" class="options"></div>
+            <button class="button" id="next-button" disabled>다음</button>
         </div>
-
+        
         <!-- 결과 화면 -->
-        <div id="result" class="hidden">
-            <h1>🧛‍♀당신의 뱀파이어 유형은?</h1>
-            <div class="result-name" id="resultName"></div>
-            <div class="result-desc" id="resultDesc"></div>
-            
-            <div class="similar-vampire">
-                <h3>당신의 유형과 유사한 뱀파이어</h3>
-                <p id="similarVampire"></p>
+        <div id="result-screen" style="display: none;">
+            <h1>🧛‍♀ 당신의 뱀파이어 유형은?</h1>
+            <div class="result-section">
+                <div id="type-name" class="type-name"></div>
+                <div id="type-description" class="type-description"></div>
             </div>
-            
-            <a href="https://link.tumblbug.com/VeQWD0T1IRb" class="special-link" target="_blank">
-                당신과 닮은 뱀파이어를 이해하는 특별한 방법 예매하기
-            </a>
-            
-            <button class="btn" id="retryBtn">다시 테스트하기</button>
+            <div class="similar-vampire">
+                <div class="similar-title">당신의 유형과 유사한 뱀파이어</div>
+                <div id="similar-vampire" class="similar-content"></div>
+            </div>
+            <button class="button" id="restart-button">다시 테스트하기</button>
         </div>
     </div>
 
     <script>
-        // 문제와 선택지 데이터
+        // 질문과 선택지 데이터
         const questions = [
             {
-                question: "영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?",
+                question: "1. 영원을 살아갈 운명이 되었다. 당신은 무엇이 가장 두려운가?",
                 options: [
                     { text: "함께했던 이들이 하나둘 사라지는 것.", type: "A" },
                     { text: "삶을 끝내지 못하고 끊임없이 살아가는 것.", type: "B" },
@@ -202,7 +187,7 @@
                 ]
             },
             {
-                question: "피가 마시고 싶어진다. 당신은 어떻게 할 것인가?",
+                question: "2. 피가 마시고 싶어진다. 당신은 어떻게 할 것인가?",
                 options: [
                     { text: "본능을 부정할 필요는 없으니 원하는 대로 마신다.", type: "A" },
                     { text: "죄책감을 느끼면서도 결국 마시고 후회한다.", type: "B" },
@@ -211,7 +196,7 @@
                 ]
             },
             {
-                question: "사랑하는 이가 나를 떠날지도 모른다고 생각한다면?",
+                question: "3. 사랑하는 이가 나를 떠날지도 모른다고 생각한다면?",
                 options: [
                     { text: "우리는 영원히 함께할 운명이라며 매달린다.", type: "A" },
                     { text: "그를 나와 같은 존재로 만든다.", type: "B" },
@@ -220,7 +205,7 @@
                 ]
             },
             {
-                question: "영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?",
+                question: "4. 영원한 삶 속에서 당신이 끝까지 포기하지 못할 한 가지는?",
                 options: [
                     { text: "내가 사랑하는 존재.", type: "A" },
                     { text: "나를 이해하고 포용할 존재.", type: "B" },
@@ -229,7 +214,7 @@
                 ]
             },
             {
-                question: "당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?",
+                question: "5. 당신을 죽이려는 인간이 뒤쫓아온다. 어떻게 하겠는가?",
                 options: [
                     { text: "인간 따위는 별것 아니다. 맞서 싸운다.", type: "A" },
                     { text: "다가올 죽음을 받아들인다.", type: "B" },
@@ -238,7 +223,7 @@
                 ]
             },
             {
-                question: "당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?",
+                question: "6. 당신의 정체를 눈치챈 인간이 두려워한다. 어떻게 반응하겠는가?",
                 options: [
                     { text: "오히려 좋다. 나는 인간과 달리 강하니까.", type: "A" },
                     { text: "신경 쓰지 않는다. 그 인간은 나를 이해하지 못할 테니까.", type: "B" },
@@ -247,7 +232,7 @@
                 ]
             },
             {
-                question: "수백 년 후 홀로 남은 당신은 어떻게 할 것인가?",
+                question: "7. 수백 년 후 홀로 남은 당신은 어떻게 할 것인가?",
                 options: [
                     { text: "사랑할 존재를 찾아 나선다.", type: "A" },
                     { text: "권태로운 삶을 끝내기 위해 노력한다.", type: "B" },
@@ -262,35 +247,43 @@
             "A": {
                 name: "[애디 유형]",
                 description: "당신은 본능에 충실하고 사랑에 나약한 뱀파이어입니다. 사랑에 대한 집착과 소유욕이 강하며, 원하는 것을 얻기 위해 적극적으로 행동합니다. 두려움보다는 자신의 욕망과 본능에 충실하게 살아가는 유형으로, 영원한 삶 속에서도 자신이 원하는 것을 향해 나아갑니다.",
-                similar: "애디 <드라큘라(1992)> 드라큘라 백작"
+                similar: "<드라큘라(1992)> 드라큘라 백작"
             },
             "B": {
                 name: "[이브 유형]",
                 description: "당신은 영원한 삶의 무게를 깊이 느끼는 뱀파이어입니다. 존재에 대한 깊은 고민과 죄책감을 가지고 있으며, 자신의 본능과 욕망 사이에서 끊임없이 갈등합니다. 이해받기를 원하지만, 동시에 타인과의 깊은 관계를 향한 두려움도 있는 복잡한 내면을 지닌 유형입니다.",
-                similar: "이브 <뱀파이어와의 인터뷰(1994)> 루이"
+                similar: "<뱀파이어와의 인터뷰(1994)> 루이"
             },
             "C": {
                 name: "[윤 유형]",
                 description: "당신은 이성적이고 균형 잡힌 뱀파이어입니다. 자신의 본능을 통제하며 목표를 향해 나아가는 자제력을 갖추고 있습니다. 상황을 분석하고 이해하려는 태도를 가지고 있으며, 감정보다는 합리적인 선택을 중시한다고 스스로 생각합니다. 영원한 삶 속에서도 자신의 가치와 목표를 놓치지 않으려는 유형입니다.",
-                similar: "윤 <트와일라잇(2008)> 아로"
+                similar: "<트와일라잇(2008)> 아로"
             },
             "D": {
                 name: "[정 유형]",
                 description: "당신은 조용하고 은밀하게 자신의 길을 가는 뱀파이어혼혈입니다. 충돌과 갈등을 피하며, 자신의 본능을 억제하려는 경향이 있습니다. 타인과 깊은 관계를 맺기보다는 거리를 두며 관찰하는 것을 선호하고, 자신만의 신념과 원칙을 중요시합니다. 자신의 정체성을 유지하려는 유형입니다.",
-                similar: "정 <블레이드 (1998)> 블레이드"
+                similar: "<블레이드 (1998)> 블레이드"
             }
         };
 
-        let currentQuestion = 1;
-        const totalQuestions = questions.length;
-        let answers = {};
+        // 변수 초기화
+        let currentQuestion = 0;
+        let answers = [];
+        let selectedOption = null;
 
         // DOM 요소
-        const startDiv = document.getElementById('start');
-        const quizDiv = document.getElementById('quiz');
-        const resultDiv = document.getElementById('result');
-        const startBtn = document.getElementById('startBtn');
-        const retryBtn = document.getElementById('retryBtn');
+        const startScreen = document.getElementById('start-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const progressBar = document.getElementById('progress-bar');
+        const typeNameElement = document.getElementById('type-name');
+        const typeDescriptionElement = document.getElementById('type-description');
+        const similarVampireElement = document.getElementById('similar-vampire');
+        const startButton = document.getElementById('start-button');
+        const nextButton = document.getElementById('next-button');
+        const restartButton = document.getElementById('restart-button');
 
         // 선택지 섞기 함수
         function shuffleArray(array) {
@@ -301,61 +294,65 @@
             return array;
         }
 
-        // 질문 초기화
-        function initQuestions() {
-            questions.forEach((q, index) => {
-                const questionNumber = index + 1;
-                const optionsContainer = document.querySelector(`.question[data-question="${questionNumber}"] .options`);
-                optionsContainer.innerHTML = ''; // 기존 옵션 초기화
-                
-                // 옵션 섞기
-                const shuffledOptions = shuffleArray([...q.options]);
-                
-                // 옵션 추가
-                shuffledOptions.forEach((option, optIndex) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'option';
-                    optionDiv.textContent = option.text;
-                    optionDiv.dataset.type = option.type;
-                    
-                    optionDiv.addEventListener('click', function() {
-                        // 이전 선택 제거
-                        const siblings = this.parentElement.querySelectorAll('.option');
-                        siblings.forEach(sib => sib.classList.remove('selected'));
-                        
-                        // 현재 선택 표시
-                        this.classList.add('selected');
-                        
-                        // 답변 저장
-                        answers[questionNumber] = option.type;
-                        
-                        // 마지막 질문이 아니면 다음 질문으로, 아니면 결과 표시
-                        setTimeout(() => {
-                            if (questionNumber < totalQuestions) {
-                                showQuestion(questionNumber + 1);
-                            } else {
-                                showResult();
-                            }
-                        }, 500);
-                    });
-                    
-                    optionsContainer.appendChild(optionDiv);
-                });
+        // 질문 표시 함수
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            questionElement.textContent = question.question;
+            
+            // 선택지 섞기
+            const shuffledOptions = shuffleArray([...question.options]);
+            
+            optionsElement.innerHTML = '';
+            shuffledOptions.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option.text;
+                optionElement.dataset.type = option.type;
+                optionElement.addEventListener('click', () => highlightOption(optionElement));
+                optionsElement.appendChild(optionElement);
             });
+            
+            // 진행률 바 업데이트
+            const progress = (currentQuestion / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // 다음 버튼 비활성화
+            nextButton.disabled = true;
+            selectedOption = null;
         }
 
-        // 특정 질문 표시
-        function showQuestion(number) {
-            document.querySelectorAll('.question').forEach(q => {
-                q.classList.remove('active');
+        // 선택지 하이라이트 함수
+        function highlightOption(optionElement) {
+            // 이전 선택 해제
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected');
             });
-            document.querySelector(`.question[data-question="${number}"]`).classList.add('active');
-            currentQuestion = number;
+            
+            // 현재 선택 하이라이트
+            optionElement.classList.add('selected');
+            selectedOption = optionElement.dataset.type;
+            
+            // 다음 버튼 활성화
+            nextButton.disabled = false;
         }
 
-        // 결과 계산 및 표시
-        function showResult() {
-            // 답변 집계
+        // 다음 질문으로 이동
+        function goToNextQuestion() {
+            if (selectedOption) {
+                answers.push(selectedOption);
+                currentQuestion++;
+                
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }
+        }
+
+        // 결과 계산 함수
+        function calculateResult() {
             const counts = {
                 "A": 0,
                 "B": 0,
@@ -363,11 +360,12 @@
                 "D": 0
             };
             
-            for (const answer in answers) {
-                counts[answers[answer]]++;
-            }
+            // 각 유형별 응답 수 계산
+            answers.forEach(answer => {
+                counts[answer]++;
+            });
             
-            // 최대 개수 찾기
+            // 최대값 찾기
             let maxCount = 0;
             let maxTypes = [];
             
@@ -380,40 +378,41 @@
                 }
             }
             
-            // 동점이면 랜덤 선택
-            const resultType = maxTypes[Math.floor(Math.random() * maxTypes.length)];
+            // 동일한 결과가 여러 개인 경우 랜덤 선택
+            return maxTypes[Math.floor(Math.random() * maxTypes.length)];
+        }
+
+        // 결과 표시 함수
+        function showResult() {
+            const resultType = calculateResult();
             const result = results[resultType];
             
-            // 결과 표시
-            document.getElementById('resultName').textContent = result.name;
-            document.getElementById('resultDesc').textContent = result.description;
-            document.getElementById('similarVampire').textContent = result.similar;
+            typeNameElement.textContent = result.name;
+            typeDescriptionElement.textContent = result.description;
+            similarVampireElement.textContent = result.similar;
             
-            // 화면 전환
-            quizDiv.classList.add('hidden');
-            resultDiv.classList.remove('hidden');
+            questionScreen.style.display = 'none';
+            resultScreen.style.display = 'block';
         }
 
         // 시작 버튼 이벤트
-        startBtn.addEventListener('click', function() {
-            startDiv.classList.add('hidden');
-            quizDiv.classList.remove('hidden');
-            showQuestion(1);
+        startButton.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            showQuestion();
         });
 
-        // 다시하기 버튼 이벤트
-        retryBtn.addEventListener('click', function() {
-            // 초기화
-            answers = {};
-            resultDiv.classList.add('hidden');
-            startDiv.classList.remove('hidden');
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-        });
+        // 다음 버튼 이벤트
+        nextButton.addEventListener('click', goToNextQuestion);
 
-        // 초기화
-        initQuestions();
+        // 다시 시작 버튼 이벤트
+        restartButton.addEventListener('click', () => {
+            currentQuestion = 0;
+            answers = [];
+            selectedOption = null;
+            resultScreen.style.display = 'none';
+            startScreen.style.display = 'block';
+        });
     </script>
 </body>
 </html>
